@@ -82,7 +82,11 @@ async function connect(token: string) {
         handleRoomEvents(odinRoom);
         // Join the room and specify initial user data
         const ownPeer = await odinRoom.join(valueToUint8Array(userData));
-      
+
+        // Tell UE5 about join success
+        console.log("Successfully joined Odin room");
+        this.stream.emitUIInteraction("onJoinOdinRoomSuccess");
+
         // Create a new audio stream for the default capture device and append it to the room
         navigator.mediaDevices
             .getUserMedia({
@@ -103,7 +107,9 @@ async function connect(token: string) {
         console.error('Failed to join room', e);
         alert(e);
         disconnect();
-      
+
+        // Tell UE5 about join fail
+        this.stream.emitUIInteraction("onJoinOdinRoomFailure");
     }
 }
 /**
