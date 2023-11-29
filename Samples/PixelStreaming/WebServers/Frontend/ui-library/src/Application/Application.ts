@@ -72,7 +72,7 @@ let Var_Media : OdinMedia;
  * Connects to the ODIN server network by authenticating with the specified room token, joins the room, configures our
  * own microphone input stream and registers a few callbacks to handle the most important server events.
  */
-async function connect(token: string) {
+async function connect(token: string, stream: PixelStreaming) {
     try {
         // Create an audio context (must happen after user interaction due to browser privacy features)
         const audioContext = new AudioContext();
@@ -82,6 +82,9 @@ async function connect(token: string) {
         handleRoomEvents(odinRoom);
         // Join the room and specify initial user data
         const ownPeer = await odinRoom.join(valueToUint8Array(userData));
+
+        console.log("onJoinOdinRoomSuccess");
+        stream.emitUIInteraction("onJoinOdinRoomSuccess");
 
         // Create a new audio stream for the default capture device and append it to the room
         navigator.mediaDevices
@@ -103,6 +106,7 @@ async function connect(token: string) {
         console.error('Failed to join room', e);
         alert(e);
         disconnect();
+        stream.emitUIInteraction("onJoinOdinRoomFailure");
     }
 }
 /**
@@ -527,7 +531,7 @@ export class Application {
                     console.log(roomId);
                     const Var_TokenGenerator = new TokenGenerator(accessKey);
                     const Token = Var_TokenGenerator.createToken(roomId, userId);
-                    connect(Token);
+                    connect(Token, this.stream);
                 }
             }catch (error){
                 console.log("This Response is not in JSON format");
@@ -888,10 +892,11 @@ export class Application {
 
     onJoinOdinRoomSuccess(success: boolean) {
         if (success) {
+            console.log("onJoinOdinRoomSuccess");
             this.stream.emitUIInteraction("onJoinOdinRoomSuccess");
         } else if (!success) {
+            console.log("onJoinOdinRoomFailure");
             this.stream.emitUIInteraction("onJoinOdinRoomFailure");
         }
-
     }
 }
