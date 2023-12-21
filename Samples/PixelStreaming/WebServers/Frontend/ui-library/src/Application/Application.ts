@@ -512,15 +512,20 @@ export class Application {
                 case "MuteMic":
                     if(Var_Media)
                     {
+                        console.log("Mute Mic");
                         Var_Media.stop();
                     }
                     break;
                 case "UnMuteMic":
                     if(Var_Media)
                     {
+                        console.log("Unmute Mic");
                         Var_Media.start();
                     }
                     break;
+                case "DisconnectOdin":
+                    console.log("Disconnect Odin");
+                    disconnect();
 
             }
             try{
