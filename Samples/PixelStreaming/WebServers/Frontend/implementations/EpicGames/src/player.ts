@@ -21,4 +21,9 @@ document.body.onload = function() {
 	});
 	// document.getElementById("centrebox").appendChild(application.rootElement);
 	document.body.appendChild(application.rootElement);
+
+	window.addEventListener('beforeunload', (event) => {
+		application.onCloseBrowserTab();
+		event.returnValue = '';
+	});
 }
