@@ -26,4 +26,14 @@ document.body.onload = function() {
 		application.onCloseBrowserTab();
 		event.returnValue = '';
 	});
+
+	document.addEventListener("visibilitychange", () => {
+		if (document.visibilityState === "visible") {
+			console.log("Visible");
+			application.onEnterBrowser();
+		} else {
+			console.log("Hidden");
+			application.onExitBrowser();
+		}
+	});
 }

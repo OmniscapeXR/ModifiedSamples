@@ -908,4 +908,12 @@ export class Application {
     onCloseBrowserTab() {
         this.stream.emitUIInteraction("onCloseBrowserTab");
     }
+
+    onExitBrowser() {
+        this.stream.emitUIInteraction("onExitBrowser");
+    }
+
+    onEnterBrowser() {
+        this.stream.emitUIInteraction("onEnterBrowser");
+    }
 }
