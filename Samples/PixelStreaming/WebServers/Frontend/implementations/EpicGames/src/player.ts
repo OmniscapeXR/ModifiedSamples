@@ -27,13 +27,15 @@ document.body.onload = function() {
 		event.returnValue = '';
 	});
 
-	document.addEventListener("visibilitychange", () => {
-		if (document.visibilityState === "visible") {
-			console.log("Visible");
-			application.onEnterBrowser();
-		} else {
-			console.log("Hidden");
-			application.onExitBrowser();
-		}
-	});
+	if (window.navigator.userAgent.indexOf("Android") != -1 || window.navigator.userAgent.indexOf("iPhone") != -1) {
+		document.addEventListener("visibilitychange", () => {
+			if (document.visibilityState === "visible") {
+				console.log("Visible");
+				application.onEnterBrowser();
+			} else {
+				console.log("Hidden");
+				application.onExitBrowser();
+			}
+		});
+	}
 }
