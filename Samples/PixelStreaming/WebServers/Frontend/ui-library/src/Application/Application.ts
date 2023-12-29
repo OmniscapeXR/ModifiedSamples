@@ -904,16 +904,4 @@ export class Application {
             this.stream.emitUIInteraction("onJoinOdinRoomFailure");
         }
     }
-
-    onCloseBrowserTab() {
-        this.stream.emitUIInteraction("onCloseBrowserTab");
-    }
-
-    onExitBrowser() {
-        this.stream.emitUIInteraction("onExitBrowser");
-    }
-
-    onEnterBrowser() {
-        this.stream.emitUIInteraction("onEnterBrowser");
-    }
 }

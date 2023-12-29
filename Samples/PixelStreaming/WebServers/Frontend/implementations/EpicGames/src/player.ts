@@ -21,21 +21,5 @@ document.body.onload = function() {
 	});
 	// document.getElementById("centrebox").appendChild(application.rootElement);
 	document.body.appendChild(application.rootElement);
-
-	window.addEventListener('beforeunload', (event) => {
-		application.onCloseBrowserTab();
-		event.returnValue = '';
-	});
-
-	if (window.navigator.userAgent.indexOf("Android") != -1 || window.navigator.userAgent.indexOf("iPhone") != -1) {
-		document.addEventListener("visibilitychange", () => {
-			if (document.visibilityState === "visible") {
-				console.log("Visible");
-				application.onEnterBrowser();
-			} else {
-				console.log("Hidden");
-				application.onExitBrowser();
-			}
-		});
-	}
+	
 }
